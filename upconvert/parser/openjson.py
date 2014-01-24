@@ -359,12 +359,16 @@ class JSON(object):
     def parse_symbol_body(self, body):
         """ Extract a body of a symbol. """
         bdy = SBody()
-        for pin in body.get('pins'):
-            parsed_pin = self.parse_pin(pin)
-            bdy.add_pin(parsed_pin)
-        for shape in body.get('shapes'):
-            parsed_shape = self.parse_shape(shape)
-            bdy.add_shape(parsed_shape)
+        pins = body.get('pins')
+        if (pins != None):
+            for pin in body.get('pins'):
+                parsed_pin = self.parse_pin(pin)
+                bdy.add_pin(parsed_pin)
+        shapes = body.get('shapes')
+        if (shapes != None):
+            for shape in body.get('shapes'):
+                parsed_shape = self.parse_shape(shape)
+                bdy.add_shape(parsed_shape)
         return bdy
 
 
@@ -526,9 +530,11 @@ class JSON(object):
         for point in net_point.get('connected_points'):
             npnt.add_connected_point(point)
         # Get the ConnectedComponents
-        for connectedcomponent in net_point.get('connected_components'):
-            conn_comp = self.parse_connected_component(connectedcomponent)
-            npnt.add_connected_component(conn_comp)
+        comps = net_point.get('connected_components')
+        if (comps != None):
+            for connectedcomponent in comps:
+                conn_comp = self.parse_connected_component(connectedcomponent)
+                npnt.add_connected_component(conn_comp)
         return npnt
 
 

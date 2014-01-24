@@ -359,6 +359,8 @@ class Gerber:
             component = design.components.components[component_instance.library_id]
             component_image = Image(layer_name + ' component ' + component_instance.instance_id, font_renderer=self.face)
             footprint_pos = component_instance.footprint_pos
+            if footprint_pos is None:
+                continue
             if footprint_pos.side is None:
                 continue
 

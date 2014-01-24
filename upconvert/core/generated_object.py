@@ -53,7 +53,14 @@ class GeneratedObject(object):
         return float(self.get_attr(name, default, instance_attributes))
 
     def get_int_attr(self, name, default, instance_attributes):
-        return int(self.get_attr(name, default, instance_attributes))
+        import math
+        attr = self.get_attr(name, default, instance_attributes)
+        if attr is None:
+            return 0
+        elif math.isnan(float(attr)):
+            return 0
+        else:
+            return int(attr)
 
     def json(self):
         return {'x': self.x,
